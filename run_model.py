@@ -18,7 +18,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 print("Loading GPT-OSS-20B model. This will take time and disk space on the first run...")
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
-        torch_dtype=torch.bfloat16,  # Recommended for performance
+    dtype=torch.bfloat16,  # Changed from torch_dtype to dtype
     device_map="auto",           # Automatically place on GPU
     trust_remote_code=True,      # For any custom model code
     low_cpu_mem_usage=True,      # Saves CPU memory during loading
