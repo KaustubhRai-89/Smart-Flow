@@ -1,11 +1,18 @@
-# multimodal_skeleton.py - Tests full data flow: Image → Vision → Projection → GPT-Ready
+import os
 import torch
 from PIL import Image
 import open_clip
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from projection import ProjectionLayer  # Your projection class
+from projection import ProjectionLayer
+from huggingface_hub import login
 
-# Load GPT-OSS (your working setup)
+torch.backends.cudnn.benchmark = True
+
+hf_token = os.getenv("HF_TOKEN", None)
+if hf_token:
+    login(token=hf_token)
+
+# Load GPT-OSS
 print("Loading GPT-OSS model...")
 model_name = "openai/gpt-oss-20b"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -16,9 +23,11 @@ gpt_model = AutoModelForCausalLM.from_pretrained(
     trust_remote_code=True,
     low_cpu_mem_usage=True,
 )
-print("GPT-OSS loaded.")
 
-# Load CLIP Vision (your working vision_test.py)
+llm_dim = gpt_model.config.hidden_size  # Dynamic: usually 4096 or 5120 for variants
+print(f"GPT-OSS loaded (embedding dim: {llm_dim}).")
+
+# Load CLIP Vision
 print("Loading CLIP Vision model...")
 clip_model, _, preprocess = open_clip.create_model_and_transforms('ViT-L-14', pretrained='laion2b_s32b_b82k')
 clip_model.to("cuda")
@@ -26,39 +35,35 @@ print("CLIP loaded.")
 
 # Load Projection Layer
 print("Initializing Projection Layer...")
-projection = ProjectionLayer(vision_dim=768, llm_dim=5120).to("cuda")  # Match dims
-print("Projection ready.")
+projection = ProjectionLayer(vision_dim=768, llm_dim=llm_dim).to("cuda")
 
-# Load and preprocess sample image (your attached one)
+# Load sample image and test
 try:
-    image = Image.open("sample_image.jpg")  # Or rename your attached file
-    print("Sample image loaded.")
+    image = Image.open("sample_image.jpg")
 except FileNotFoundError:
-    raise SystemExit("Error: 'sample_image.jpg' not found. Use your attached image.")
+    raise SystemExit("Error: 'sample_image.jpg' not found.")
 
 image_input = preprocess(image).unsqueeze(0).to("cuda")
-
-# Full Forward Pass Test (No Gradients for Speed)
 with torch.no_grad():
-    # Step 1: Vision Embedding
-    vision_embeds = clip_model.encode_image(image_input)
-    print(f"Step 1 - Vision embeds shape: {vision_embeds.shape}")  # [1, 768]
+    image_features = clip_model.encode_image(image_input)
+    print(f"Vision embedding shape: {image_features.shape}")  # [1, 768]
+    projected_embeds = projection(image_features)
+    print(f"Projected embedding shape: {projected_embeds.shape}")  # [1, llm_dim]
 
-    # Step 2: Project to GPT Space
-    projected_embeds = projection(vision_embeds)
-    print(f"Step 2 - Projected embeds shape: {projected_embeds.shape}")  # [1, 5120]
+# Tokenize prompt & extract text embeddings
+eo_prompt = "Is there visible flooding in the provided satellite image?"
+inputs = tokenizer(eo_prompt, return_tensors="pt")
+text_embeds = gpt_model.get_input_embeddings()(inputs.input_ids.to(gpt_model.device))  # [1, seq_len, llm_dim]
 
-    # Step 3: Prep Text Embedding (Simple Demo - Combine with Dummy Text)
-    text_prompt = "Based on this satellite image, describe any visible land features."
-    text_inputs = tokenizer(text_prompt, return_tensors="pt").to("cuda")
-    text_embeds = gpt_model.model.embeddings(text_inputs.input_ids)  # Get text embeddings
-    print(f"Step 3 - Text embeds shape: {text_embeds.shape}")  # e.g., [1, seq_len, 5120]
+# Prefix fusion: prepend projected image token embedding
+def fuse_embeds_prefix(projected_embeds, text_embeds):
+    # projected_embeds: [1, llm_dim], text_embeds: [1, seq_len, llm_dim]
+    projected_embeds = projected_embeds.unsqueeze(1)  # [1, 1, llm_dim]
+    return torch.cat([projected_embeds, text_embeds], dim=1)
 
-    # TODO: Full fusion (next phase) - Concat or add projected + text embeds
-    print("SUCCESS! Data flows through the entire pipeline without errors.")
-    print("Next: Implement text-image fusion and basic generation.")
+fused_embeds = fuse_embeds_prefix(projected_embeds, text_embeds)
+print(f"Fused sequence shape (prefix): {fused_embeds.shape}")  # [1, seq_len+1, llm_dim]
 
-# Memory Cleanup
-del clip_model, gpt_model, projection
+print("SUCCESS! Fusion and projection end-to-end test complete.")
+
 torch.cuda.empty_cache()
-print("Pipeline test complete. VRAM freed.")

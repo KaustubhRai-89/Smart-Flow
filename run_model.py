@@ -1,41 +1,46 @@
-# run_model.py (Updated for GPT-OSS Pre-Quantized Loading)
+import os
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from huggingface_hub import login
 
-# --- Verification Step ---
+# Enable cuDNN autotune for speed on uniform inputs
+torch.backends.cudnn.benchmark = True
+
+# Hugging Face authentication (set HF_TOKEN env if gated)
+hf_token = os.getenv("HF_TOKEN", None)
+if hf_token:
+    login(token=hf_token)
+
+# --- GPU & Model Verification ---
 if not torch.cuda.is_available():
-    raise SystemExit("Error: PyTorch cannot find your GPU. Please check your NVIDIA Driver, CUDA, and cuDNN installations.")
+    raise SystemExit("Error: PyTorch cannot find your GPU. Please check NVIDIA Driver, CUDA, cuDNN.")
+
 print(f"Success! PyTorch is using your GPU: {torch.cuda.get_device_name(0)}")
-# -------------------------
 
-# The official model ID on Hugging Face
-model_name = "EleutherAI/gpt-neox-20b"
-
+model_name = "openai/gpt-oss-20b"
 print("Loading tokenizer from Hugging Face...")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-# --- Configuration for your 12GB GPU ---
-print("Loading GPT-OSS-20B model. This will take time and disk space on the first run...")
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    dtype=torch.bfloat16,  # Changed from torch_dtype to dtype
-    device_map="auto",           # Automatically place on GPU
-    trust_remote_code=True,      # For any custom model code
-    low_cpu_mem_usage=True,      # Saves CPU memory during loading
-)
-# ---------------------------------------------
+try:
+    print("Loading GPT-OSS-20B model (this may take a while)...")
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        dtype=torch.bfloat16,
+        device_map="auto",
+        trust_remote_code=True,
+        low_cpu_mem_usage=True,
+    )
+except Exception as e:
+    print(f"Error loading GPT-OSS model: {str(e)}")
+    exit(1)
 
-print("Model has been loaded successfully.")
+print(f"Model loaded! Hidden size: {model.config.hidden_size}")
 
-# A test prompt related to our project
-prompt = "In the context of multimodal AI, what is a projection layer used for?"
-inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
+prompt = "Summarize the purpose of integrating vision models and LLMs for ISRO Earth Observation."
+inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+with torch.no_grad():
+    output = model.generate(**inputs, max_new_tokens=60, do_sample=True)
+    print("Generated output:")
+    print(tokenizer.decode(output[0], skip_special_tokens=True))
 
-# Generate a response
-print("Generating response...")
-outputs = model.generate(**inputs, max_new_tokens=150, do_sample=True, temperature=0.7)  # Added sampling for better output
-response_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-print("\n--- Model Response ---")
-print(response_text)
-print("----------------------")
+torch.cuda.empty_cache()
