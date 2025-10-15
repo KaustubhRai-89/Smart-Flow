@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Vision-GPT | Enhancing AI for ISRO EO Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="antialiased">
+    <!-- Header -->
+    <header class="glass-effect fixed top-0 left-0 right-0 z-50">
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <h1 class="text-xl font-bold text-white">
+          <span class="text-sky-400">Vision</span>-GPT<span
+            class="text-slate-400 text-sm"
+          >
+            x ISRO</span
+          >
+        </h1>
+        <nav class="hidden md:flex space-x-8">
+          <a
+            href="#home"
+            class="text-slate-300 hover:text-sky-400 transition-colors"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="text-slate-300 hover:text-sky-400 transition-colors"
+            >About</a
+          >
+          <a
+            href="#demo"
+            class="text-slate-300 hover:text-sky-400 transition-colors"
+            >Interactive Demo</a
+          >
+          <a
+            href="#isro-data"
+            class="text-slate-300 hover:text-sky-400 transition-colors"
+            >ISRO Data</a
+          >
+          <a
+            href="#contact"
+            class="text-slate-300 hover:text-sky-400 transition-colors"
+            >Contact</a
+          >
+        </nav>
+        <button id="mobile-menu-btn" class="md-hidden text-white">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+        <a href="#home" class="block py-2 text-slate-300 hover:text-sky-400"
+          >Home</a
+        >
+        <a href="#about" class="block py-2 text-slate-300 hover:text-sky-400"
+          >About</a
+        >
+        <a href="#demo" class="block py-2 text-slate-300 hover:text-sky-400"
+          >Interactive Demo</a
+        >
+        <a
+          href="#isro-data"
+          class="block py-2 text-slate-300 hover:text-sky-400"
+          >ISRO Data</a
+        >
+        <a href="#contact" class="block py-2 text-slate-300 hover:text-sky-400"
+          >Contact</a
+        >
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section
+        id="home"
+        class="hero-bg min-h-screen flex items-center justify-center pt-20"
+      >
+        <div class="text-center px-4">
+          <h2
+            class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4"
+          >
+            Enhancing GPT-OSS with Multimodal Vision
+          </h2>
+          <p class="text-lg md:text-xl text-sky-300 max-w-3xl mx-auto mb-8">
+            Powered by an advanced GPT-OSS model for real-time analysis of
+            ISRO's Earth Observation data.
+          </p>
+          <a href="#demo" class="btn-primary">Try the Interactive Demo</a>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about" class="py-20 md:py-28">
+        <div class="container mx-auto px-6">
+          <h3 class="section-title">About The Project</h3>
+          <p class="section-subtitle">
+            Our mission is to create an extensible AI framework that combines
+            the power of large language models with computer vision,
+            specifically tailored for analyzing ISRO's vast repository of Earth
+            Observation data.
+          </p>
+          <div class="grid md:grid-cols-3 gap-8">
+            <!-- Cards from previous step -->
+            <div
+              class="glass-effect p-8 rounded-xl text-center hover:border-sky-500 transition-all duration-300"
+            >
+              <div class="text-sky-400 mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-12 w-12 mx-auto"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  />
+                </svg>
+              </div>
+              <h4 class="text-xl font-bold text-white mb-2">
+                Advanced Language AI
+              </h4>
+              <p class="text-slate-400">
+                Leveraging OpenAI's GPT Open Source Software (GPT-OSS) for its
+                powerful natural language understanding and generation, allowing
+                users to query complex data in plain English.
+              </p>
+            </div>
+            <div
+              class="glass-effect p-8 rounded-xl text-center hover:border-sky-500 transition-all duration-300"
+            >
+              <div class="text-sky-400 mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-12 w-12 mx-auto"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+              </div>
+              <h4 class="text-xl font-bold text-white mb-2">
+                Multimodal Vision
+              </h4>
+              <p class="text-slate-400">
+                Integrating multimodal vision capabilities to enable the AI to
+                "see" and interpret visual data from satellites, identifying
+                patterns, objects, and changes over time.
+              </p>
+            </div>
+            <div
+              class="glass-effect p-8 rounded-xl text-center hover:border-sky-500 transition-all duration-300"
+            >
+              <div class="text-sky-400 mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-12 w-12 mx-auto"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h10a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.707 4.293l1.414 1.414a1 1 0 01-1.414 1.414l-1.414-1.414a1 1 0 011.414-1.414zM2.45 12a9.05 9.05 0 0119.1 0h-19.1z"
+                  />
+                </svg>
+              </div>
+              <h4 class="text-xl font-bold text-white mb-2">
+                ISRO EO Data Extensibility
+              </h4>
+              <p class="text-slate-400">
+                Building a system designed to connect with ISRO's data portals,
+                enabling analysis of high-resolution imagery from satellites
+                like Cartosat and Resourcesat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Demo Section -->
+      <section id="demo" class="py-20 md:py-28 bg-slate-900/50">
+        <div class="container mx-auto px-6">
+          <h3 class="section-title">Interactive Demo</h3>
+          <p class="section-subtitle">
+            Provide a query and optionally upload an image to see a real-time
+            analysis from the GPT-OSS model.
+          </p>
+          <div class="max-w-4xl mx-auto glass-effect p-8 rounded-xl">
+            <div class="grid md:grid-cols-2 gap-6 items-end">
+              <!-- Input Prompt -->
+              <div>
+                <label
+                  for="prompt"
+                  class="block mb-2 text-sm font-medium text-slate-300"
+                  >Your Query:</label
+                >
+                <textarea
+                  id="prompt"
+                  rows="4"
+                  class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-3 focus:ring-sky-500 focus:border-sky-500"
+                  placeholder="e.g., 'Describe this satellite image and identify key features.'"
+                ></textarea>
+              </div>
+
+              <!-- Image Upload -->
+              <div class="flex flex-col justify-end h-full">
+                <label
+                  for="image-upload"
+                  class="block mb-2 text-sm font-medium text-slate-300"
+                  >Upload Satellite Image (Optional):</label
+                >
+                <label class="block">
+                  <span class="sr-only">Choose file</span>
+                  <input
+                    type="file"
+                    id="image-upload"
+                    accept="image/png, image/jpeg, image/webp"
+                    class="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-sky-500 file:text-white hover:file:bg-sky-600 transition-colors"
+                  />
+                </label>
+                <p id="file-name" class="text-xs text-slate-500 mt-2"></p>
+              </div>
+            </div>
+
+            <div class="text-center mt-8">
+              <button id="process-btn" class="btn-primary w-full md:w-auto">
+                <span id="btn-text">Analyze Data</span>
+                <span id="btn-loader" class="hidden">
+                  <svg
+                    class="animate-spin h-5 w-5 mx-auto"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    ></circle>
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                </span>
+              </button>
+            </div>
+
+            <!-- Output Area -->
+            <div
+              id="demo-output"
+              class="mt-8 pt-6 border-t border-slate-700 text-slate-300"
+            >
+              <p class="text-slate-500 text-center">
+                AI analysis will appear here...
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ISRO Data Section -->
+      <section id="isro-data" class="py-20 md:py-28">
+        <div class="container mx-auto px-6">
+          <h3 class="section-title">Fueled by ISRO's Vision</h3>
+          <p class="section-subtitle">
+            The system is designed to be compatible with a wide range of data
+            from ISRO's world-class Earth Observation satellite fleet, providing
+            invaluable insights for various sectors.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Cards from previous step -->
+            <div class="glass-effect rounded-lg overflow-hidden group">
+              <img
+                src="https://placehold.co/600x400/1e293b/38bdf8?text=Cartosat-3"
+                alt="Cartosat-3 Satellite Imagery"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div class="p-6">
+                <h4 class="font-bold text-white text-lg">Cartosat Series</h4>
+                <p class="text-slate-400 text-sm">
+                  High-resolution cartographic and mapping data for urban
+                  planning and infrastructure monitoring.
+                </p>
+              </div>
+            </div>
+            <div class="glass-effect rounded-lg overflow-hidden group">
+              <img
+                src="https://placehold.co/600x400/1e293b/38bdf8?text=Resourcesat-2"
+                alt="Resourcesat-2 Satellite Imagery"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div class="p-6">
+                <h4 class="font-bold text-white text-lg">Resourcesat Series</h4>
+                <p class="text-slate-400 text-sm">
+                  Multispectral data for agriculture, forestry, and water
+                  resource management.
+                </p>
+              </div>
+            </div>
+            <div class="glass-effect rounded-lg overflow-hidden group">
+              <img
+                src="https://placehold.co/600x400/1e293b/38bdf8?text=RISAT-2BR1"
+                alt="RISAT-2BR1 Satellite Imagery"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div class="p-6">
+                <h4 class="font-bold text-white text-lg">RISAT Series</h4>
+                <p class="text-slate-400 text-sm">
+                  All-weather, day-and-night radar imaging for disaster
+                  management and security.
+                </p>
+              </div>
+            </div>
+            <div class="glass-effect rounded-lg overflow-hidden group">
+              <img
+                src="https://placehold.co/600x400/1e293b/38bdf8?text=Oceansat"
+                alt="Oceansat Satellite Imagery"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div class="p-6">
+                <h4 class="font-bold text-white text-lg">Oceansat Series</h4>
+                <p class="text-slate-400 text-sm">
+                  Data for oceanographic research, cyclone forecasting, and
+                  marine resource studies.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="py-20 md:py-28 bg-slate-900/50">
+        <!-- Contact form from previous step -->
+        <div class="container mx-auto px-6 max-w-2xl">
+          <h3 class="section-title">Get In Touch</h3>
+          <p class="section-subtitle">
+            Have questions about the project or potential collaborations? We'd
+            love to hear from you.
+          </p>
+          <form class="space-y-6" onsubmit="return false;">
+            <div>
+              <label
+                for="name"
+                class="block mb-2 text-sm font-medium text-slate-300"
+                >Your Name</label
+              >
+              <input
+                type="text"
+                id="name"
+                class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-3 focus:ring-sky-500 focus:border-sky-500"
+                placeholder="John Doe"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="email"
+                class="block mb-2 text-sm font-medium text-slate-300"
+                >Your Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-3 focus:ring-sky-500 focus:border-sky-500"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="message"
+                class="block mb-2 text-sm font-medium text-slate-300"
+                >Your Message</label
+              >
+              <textarea
+                id="message"
+                rows="4"
+                class="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg p-3 focus:ring-sky-500 focus:border-sky-500"
+                placeholder="Your message..."
+              ></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn-primary w-full md:w-auto">
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800">
+      <div class="container mx-auto px-6 py-8 text-center text-slate-400">
+        <p>&copy; 2025 Project Vision-GPT. All Rights Reserved.</p>
+        <p class="text-sm mt-2">
+          A conceptual demonstration of AI and Earth Observation synergy.
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
