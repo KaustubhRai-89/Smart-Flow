@@ -17,7 +17,8 @@ if not torch.cuda.is_available():
 
 print(f"Success! PyTorch is using your GPU: {torch.cuda.get_device_name(0)}")
 
-model_name = "openai/gpt-oss-20b"
+model_name = ("openai/gpt-osschr"
+              "-20b")
 print("Loading tokenizer from Hugging Face...")
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
@@ -31,8 +32,8 @@ try:
         low_cpu_mem_usage=True,
     )
 except Exception as e:
-    print(f"Error loading GPT-OSS model: {str(e)}")
-    exit(1)
+        print(f"Error loading model '{model_name}': {str(e)}")
+        raise SystemExit(1)
 
 print(f"Model loaded! Hidden size: {model.config.hidden_size}")
 

@@ -14,7 +14,7 @@ try:
     image = Image.open("sample_image.jpg")
     print("Sample image opened.")
 except FileNotFoundError:
-    raise SystemExit("Error: 'sample_image.jpg' not found. Please place your EO image in the project directory.")
+        raise SystemExit("Error: 'sample_image.jpg' not found. Please place your satellite image in the project directory.")
 
 image_input = preprocess(image).unsqueeze(0).to("cuda")
 
